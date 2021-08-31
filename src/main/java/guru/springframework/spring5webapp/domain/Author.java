@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table
 public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -13,7 +12,8 @@ public class Author {
     private String lastName;
     private String firstName;
 
-    @ManyToMany(mappedBy = "authors")
+    //@ManyToMany(mappedBy = "authors")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "authors", cascade = CascadeType.ALL)
     private Set<Book> books = new HashSet<>();
 
     public Author(){

@@ -16,8 +16,8 @@
         <td th:text="${author.Id}">123</td>
         <td th:text="${author.firstName}">Eric</td>
         <td th:text="${author.lastName}">More</td>
-        <td><a th:href="@{'/author/edit/' + ${author.Id}}">edit</a></td>
-        <td><button>Delete</button></td>
+        <td><a th:href="@{'/author/edit/' + ${author.Id}}">Edit</a></td>
+        <td><a th:href="@{'/author/delete/' + ${author.Id}}">Delete</a></td>
     </tr>
 </table>
 

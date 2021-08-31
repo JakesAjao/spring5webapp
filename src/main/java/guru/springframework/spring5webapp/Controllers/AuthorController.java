@@ -1,6 +1,7 @@
 package guru.springframework.spring5webapp.Controllers;
 
 import guru.springframework.spring5webapp.domain.Author;
+import guru.springframework.spring5webapp.domain.Book;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
 import guru.springframework.spring5webapp.services.AuthorService;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 @Controller
 public class AuthorController {
@@ -19,10 +22,9 @@ public class AuthorController {
         this.authorService = authorService;
     }
 
-    @RequestMapping("/authors")
+    @GetMapping("/authors")
     public String getAuthor(Model model){
         model.addAttribute("authors",authorRepository.findAll());
-
         return "authorlist";
     }
     @RequestMapping(value= "/author/edit/{authorId}", method = RequestMethod.GET)
@@ -31,9 +33,6 @@ public class AuthorController {
         model.put("author", author);
         return "editauthor";
     }
-
-    //public String saveAppel(@ModelAttribute("editappel") Appel editappel, BindingResult result, ModelMap model) {
-
     @RequestMapping(value="/updateauthors",method=RequestMethod.POST)
     public String saveAuthor(@ModelAttribute("author") Author author, BindingResult result, ModelMap model) {
         if (result.hasErrors()) {
@@ -44,4 +43,12 @@ public class AuthorController {
         authorService.UpdateAuthor(author);
         return  "redirect:/authors";
     }
+    @GetMapping(value= "/author/delete/{authorId}")
+    public String deleteAuthor(@PathVariable("authorId")Long authorId,Model model){
+        Set<Author> authorSet = authorService.DeleteAuthor(authorId);
+        System.out.println("Numbers of Author after delete: "+authorSet.size());
+        model.addAttribute("authors",authorSet);
+        return "authorlist";
+    }
+
 }

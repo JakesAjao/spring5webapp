@@ -65,16 +65,23 @@ public class BoostrapData implements CommandLineRunner {
 
         System.out.println("Started in Boostrap.");
         System.out.println("Numbers of Books: "+bookRepository.count());
+        System.out.println("Numbers of Author: "+authorRepository.count());
 
         System.out.println("Publishers name of books: "+publisher.getBooks().size());
 
+        /*Book book = bookRepository.findBookById(3L);
+        Author author = authorRepository.findAuthorById(3L);
+        book.getAuthors().remove(author);
+        System.out.println("Numbers of Author after delete: "+book.getAuthors().size());
 
-        //authorService.updateAuthor(2L,"Eric","Eric");
+        Book book2 = bookRepository.findBookById(5L);
+        Author author2 = authorRepository.findAuthorById(5L);
+        book2.getAuthors().remove(author2);
+        System.out.println("Numbers of Author second after delete: "+book.getAuthors().size());
 
-
-        for(Author auth:authorRepository.findAll()){
-            //System.out.println(auth);
-        }
+        for(Author auth:book.getAuthors()){
+            System.out.println(auth);
+        }*/
 
 
 

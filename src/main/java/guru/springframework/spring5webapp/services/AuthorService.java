@@ -1,55 +1,31 @@
 package guru.springframework.spring5webapp.services;
 
 import guru.springframework.spring5webapp.domain.Author;
+import guru.springframework.spring5webapp.domain.Book;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
+import guru.springframework.spring5webapp.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class AuthorService {
     private final AuthorRepository authorRepository;
     @Autowired
-    public AuthorService(AuthorRepository authorRepository) {
+    public AuthorService(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
     }
-    @Transactional
-    public void updateAuthor(Long authorId, String firstName, String lastName) {
-        Author author = authorRepository.findById(authorId)
-                .orElseThrow(() -> new IllegalStateException(
-                        "author with the id "+authorId +" does not exist."));
-//        if (firstName != null &&
-//                firstName.length()>0 &&
-//                !Objects.equals(author.getFirstName(),firstName)){
-//            author.setFirstName(firstName);
-//        }
-        if (lastName != null &&
-                lastName.length()>0 &&
-                !Objects.equals(author.getLastName(),lastName)){
-            author.setLastName(lastName);
-        }
-        if (firstName != null &&
-                firstName.length()>0 &&
-                !Objects.equals(author.getFirstName(),firstName)){
 
-            Optional<Author> authorOptional = authorRepository.findAuthorByFirstName(firstName);
-            if (authorOptional.isPresent()){
-                //throw new IllegalStateException("FirstName Taken");
-                System.out.println("FirstName Taken");
-            }
+    private final BookRepository bookRepository;
 
-            author.setFirstName(firstName);
-            System.out.println("FirstName Updated.");
-        }
-    }
+
     @Transactional
     public Author findByAuthorId(Long authorId){
-        //Optional<Author> authorOptional = authorRepository.findAuthorByFirstName(authorId);
         Author author = authorRepository.findById(authorId).get();
-
         return author;
     }
     public void UpdateAuthor(Author author){
@@ -60,5 +36,21 @@ public class AuthorService {
         author.setFirstName(author.getFirstName());
         author.setLastName(author.getLastName());
         authorRepository.save(author);
+    }
+
+    public Set<Author> DeleteAuthor(Long authorId) {
+        if (authorId > 0) {
+//            Book book = bookRepository.findBookById(authorId);
+//            Author author = authorRepository.findAuthorById(authorId);
+//            book.getAuthors().remove(author);
+//            System.out.println("Numbers of Author after delete: "+book.getAuthors().size());
+//            return book.getAuthors();
+            Book book = bookRepository.findBookById(3L);
+            Author author = authorRepository.findAuthorById(3L);
+            book.getAuthors().remove(author);
+            System.out.println("Numbers of Author after delete: "+book.getAuthors().size());
+            return book.getAuthors();
+        }
+        return null;
     }
 }
