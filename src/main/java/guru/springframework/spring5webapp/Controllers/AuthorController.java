@@ -6,10 +6,8 @@ import guru.springframework.spring5webapp.services.AuthorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AuthorController {
@@ -32,5 +30,18 @@ public class AuthorController {
         Author author = authorService.findByAuthorId(authorId);
         model.put("author", author);
         return "editauthor";
+    }
+
+    //public String saveAppel(@ModelAttribute("editappel") Appel editappel, BindingResult result, ModelMap model) {
+
+    @RequestMapping(value="/updateauthors",method=RequestMethod.POST)
+    public String saveAuthor(@ModelAttribute("author") Author author, BindingResult result, ModelMap model) {
+        if (result.hasErrors()) {
+            return "redirect:/authors";
+        }
+        System.out.println("Updated First NAME: "+author.getFirstName());
+        System.out.println("Updated Last NAME: "+author.getLastName());
+        authorService.UpdateAuthor(author);
+        return  "redirect:/authors";
     }
 }

@@ -73,7 +73,7 @@ public class BoostrapData implements CommandLineRunner {
 
 
         for(Author auth:authorRepository.findAll()){
-            System.out.println(auth);
+            //System.out.println(auth);
         }
 
 

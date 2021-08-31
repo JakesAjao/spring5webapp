@@ -48,9 +48,17 @@ public class AuthorService {
     @Transactional
     public Author findByAuthorId(Long authorId){
         //Optional<Author> authorOptional = authorRepository.findAuthorByFirstName(authorId);
-        Author author = authorRepository.findById(authorId).orElseThrow(() -> new IllegalStateException(
-                "author with the id "+authorId +" does not exist."));
-        return author;
+        Author author = authorRepository.findById(authorId).get();
 
+        return author;
+    }
+    public void UpdateAuthor(Author author){
+        if (author==null){
+            System.out.println("Author is empty.");
+            return;
+        }
+        author.setFirstName(author.getFirstName());
+        author.setLastName(author.getLastName());
+        authorRepository.save(author);
     }
 }
