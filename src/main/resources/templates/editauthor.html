@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Spring Framework Guru</title>
+</head>
+<body>
+<h1>Edit Author</h1>
+<form action="#" th:action="@{/updateauthors}" th:object="${author}" method="post">
+    <div class="form-control">
+        <label class="header"> Author Id <span>:</span></label>
+        <input type="text" id="name" th:field="*{Id}"/>
+    </div>
+
+    <div class="form-control">
+        <label class="header">First Name <span>:</span></label>
+        <input type="text" id="firstName" th:field="*{firstName}" required=""/>
+    </div>
+
+    <div class="form-control">
+        <label class="enquiry">LastName <span>:</span></label>
+        <input type="text" th:field="*{lastName}"></input>
+        <div class="clear"></div>
+    </div>
+
+    <div class="form-control">
+        <input type="reset" class="reset" value="Reset"/>
+        <input type="submit" class="register" value="save changes"/>
+        <div class="clear"></div>
+    </div>
+</form>
+</body>
+</html>

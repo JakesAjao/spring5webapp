@@ -6,6 +6,8 @@ import guru.springframework.spring5webapp.domain.Publisher;
 import guru.springframework.spring5webapp.repositories.AuthorRepository;
 import guru.springframework.spring5webapp.repositories.BookRepository;
 import guru.springframework.spring5webapp.repositories.PublisherRepository;
+import guru.springframework.spring5webapp.services.AuthorService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -14,15 +16,23 @@ public class BoostrapData implements CommandLineRunner {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
     private final PublisherRepository publisherRepository;
-    public BoostrapData(AuthorRepository authorRepository, BookRepository bookRepository,PublisherRepository publisherRepository) {
+
+    public BoostrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository, AuthorService authorService) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
         this.publisherRepository = publisherRepository;
+        this.authorService = authorService;
     }
+
+    private final AuthorService authorService;
+
+
+       // this.studentService = studentService;
 
 
     @Override
     public void run(String... args) throws Exception {
+
 
         Publisher publisher = new Publisher("Martin Fowler","No 12, Ogba Ijaiye, Lagos","Lagos","Lagos","234");
 
@@ -57,6 +67,17 @@ public class BoostrapData implements CommandLineRunner {
         System.out.println("Numbers of Books: "+bookRepository.count());
 
         System.out.println("Publishers name of books: "+publisher.getBooks().size());
+
+
+        //authorService.updateAuthor(2L,"Eric","Eric");
+
+
+        for(Author auth:authorRepository.findAll()){
+            System.out.println(auth);
+        }
+
+
+
 
 
 
